@@ -1,0 +1,3 @@
+First we should find out the L(i,i) which equals to sqrt(A(i,i)- sum(L(i,k)^2)) where k = 1 to i-1.
+Then based on the L(i,i) we got, we could get L(i,j) = (A(i,j)- sum(L(i,k)L(j,k)))/L(j,j) where k = 1 to j-1;
+The addition requirement is that any A(i,i) should larger then the sum of A(i,j)^2 for j = 1 to i-1.

@@ -1,0 +1,136 @@
+\documentclass[11pt]{article}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\title{Numerical Method Homework3}
+\author{Xiangbo Wang}
+\begin{document}
+	\maketitle
+	\section{Problem1}
+	\setlength{\parindent}{2em}
+	\par From the definition of norm of matrix, $\|A\|$ bounds the "amplifying power" of the matrix: $\|A\| \leq \|A\|\|x\|$. And since $b = Ax \mbox{ and } \delta x = A^{-1}\delta b$, we could obtain that
+	\begin{eqnarray}
+		\|b\| \leq \|A\|\|x\|\\
+		\|\delta x\| \leq \|A^{-1}\|\|\delta b\|
+	\end{eqnarray}
+	Then from equation (1), we could obtain that \begin{equation}\frac{1}{\|x\|} \leq \|A\|\frac{1}{\|b\|}\end{equation} Therefore from both equation (2) and equation (3), we get what we need
+	\begin{equation}
+		\frac{\|\delta x\|}{\|x\|} \leq \|A\|\|A^{-1}\|\frac{\|\delta b\|}{\|b\|}
+	\end{equation}
+	\section{Problem2}
+	\setlength{\parindent}{2em}
+	\subsection{Norm of an orthonormal matrix}
+	\par The norm of matrix $M$ could be obtained by following equation
+	\begin{equation}\begin{split}
+		\|M\| = \sqrt{\mbox{largest eigenvalue of }M^*M}\\
+		\mbox{\begin{itshape}where \end{itshape}}M^*M = M^TM
+	\end{split}\end{equation}
+	\par Since matrix $M$ is an orthonormal matrix, it has the properties of \(M^T = M^{-1}\mbox{ and }M^{-1}M = I\mbox{. Then }M^*M = M^TM = M^{-1}M = I\). Because the eigenvalue of $I$ is 1, therefore the norm of an orthonormal matrix $M$ is \(1\mbox{ or }{-1}\).	
+	\subsection{Determinant of an orthonormal matrix}
+	\par Let's assume that the orthogonal matrix is \(M\). And its transpose is \(M^T\).
+	\par According to the properties of transpose of a matrix, we obtain that \(det(M)=det(M^T)\). Then from that equation, we get that \(det(M)^2=det(M)det(M)=det(M^T)det(M)=det(MM^T)\). As \(M\) is an orthogonal matrix, it has the property that \(M^T=M^{-1}\) which entails that \(MM^T=I\). Based on all we get, we finally obtain that \(det(MM^T)=det(I)=1\).
+	\par Therefore the determinant of an orthonormal matrix is \(1\mbox{ or }{-1}\).
+	\section{Problem3}
+	\setlength{\parindent}{2em}
+	\par To show that any two eigenvectors of a symmetric matrix are orthogonal, we must show that the dot product of any two eigenvectors is zero. Let's assume that \(v_1\) and \(v_2\) are eigenvectors corresponding to distinct eigenvalues \(\lambda_1\) and \(\lambda_2\) of matrix \(A\). So we have \(Av_1 = \lambda_1v_1\mbox{ and }Av_2 = \lambda_2v_2\). Then we can obtain that \begin{equation}\lambda_1(v_1 \cdot v_2) = (\lambda_1v_1) \cdot v_2 = (Av_1) \cdot v_2\end{equation}According to the properties of dot product of matrix, we have \begin{equation}(Av_1) \cdot v_2 = (Av_1)^Tv_2 = (v_1^TA^T)v_2 = v_1^T(A^Tv_2) = v_1 \cdot (A^Tv_2)\end{equation}Since \(A\) is a symmetric matrix, which has the property that \(A = A^T\), then equation(2) will be \begin{equation}v_1 \cdot (A^Tv_2) = v_1 \cdot (Av_2) = v_1 \cdot (\lambda_2v_2) = \lambda_2(v_1 \cdot v_2)\end{equation}Hence\begin{equation}\lambda_1(v_1 \cdot v_2) = \lambda_2(v_1 \cdot v_2) => (\lambda_1 - \lambda_2)(v_1 \cdot v_2) = 0\end{equation}Since \(\lambda_1\mbox{ and }\lambda_2\) are distinct, we can conclude that \(v_1 \cdot v_2 = 0\), which means \(v_1\mbox{ and }v_2\) are orthogonal. Therefore the eigenvectors of a symmetric matrix are orthogonal.
+	\section{Problem4}
+	\par Let's assume there exits such y minimize the equation like
+	\begin{equation}
+		\frac{1}{2}y^TAy - b^Ty + c = a \mbox{\begin{itshape} where $a$ is the minimum value\end{itshape}}
+	\end{equation}
+	And if $Ay = b$ holds, from equation (10) we should have
+	\begin{equation}
+		\frac{1}{2}y^TAy - (Ay)^Ty + c = \frac{1}{2}y^TAy - y^TA^Ty + c = a
+	\end{equation}
+	Since $A$ is symmetric, then it has the property of $A = A^T$. Then equation (11) will be
+	\begin{equation}
+		\frac{1}{2}y^TAy - y^TAy + c = {-\frac{1}{2}}y^TAy + c = a
+	\end{equation}
+	Since $A$ is positive definite, $y^TAy$ is always positive, which means ${-\frac{1}{2}}y^TAy$ is always negative. Therefore equation (12) should hold for certain minimized $a$, and such $y$ must exist which holds the two equations.
+	\section{Problem5}
+	\setlength{\parindent}{2em}
+	\par I use $p5.cpp$ to implement the solver. Basic idea is that do \begin{itshape}Gaussian Elimination\end{itshape} on the matrix $A$ first, then solve the problem according the eliminated matrix. Since we know that the matrix is a quint-diagonal matrix, I decrease the operations and memory usage by just operating on the non-zero elements.
+	\par $ps.$ please use gcc to compile the file.
+	\section{Problem6}
+	\setlength{\parindent}{2em}
+	\par I use $p6\_pbc.m$ and $p6\_zbc.m$ to implement \begin{itshape}periodic boundary conditions\end{itshape} and \begin{itshape}zero-padded boundary conditions\end{itshape} respectively. From the results I obtain, both methods work fine, but $pbc$ is better.
+	\par Both methods have a determinant of 0. Determinant shows the measure of volume is multiplied under the transformation, so the result shows that both of them work good. Also the eigenvectors/eigenvalues look good and similar between them. However, $zbc$ has an $Inf$ condition number while $pbc$ always has a really small one. Condition numbers measure the asymptotically worst case of how much the function can change in proportion to small changes in the argument. And one with a low condition number is said to be well-conditioned, while one with a high condition number is said to be ill-conditioned. In conclusion, $pbc$ works better than $zbc$.
+	\par $ps.$ The input of both programs must follow the format as \begin{itshape}[1 2 3 4 5 6]\end{itshape}
+	\section{Problem7}
+	\setlength{\parindent}{2em}
+	\par I use $p7.m$ to implement the \begin{itshape}pair difference\end{itshape}. The results shows that the matrix has a determinant of 1 which is relevantly high compared with the previous two. Besides, it has a fair condition number which shows that it works fine.
+	\par $ps.$ The input of both programs must follow the format as \begin{itshape}[1 2 3 4 5 6]\end{itshape}
+	\section{Problem8}
+	\setlength{\parindent}{2em}
+	\subsection{LU}
+	I use \begin{itshape}Crout's Method\end{itshape} to solve this problem. Since the upper and lower triangle are all zeros, the L and U should be like 
+	\begin{equation}L = \left(\begin{array}{ccccc}
+		1 & 0 & 0 & 0 & 0\\
+		l_{21} & 1 & 0 & 0 & 0\\
+		0 & l_{32} & 1 & 0 & 0\\
+		0 & 0 & l_{43} & 1 & 0\\
+		0 & 0 & 0 & l_{54} & 1
+	\end{array}\right)\end{equation}
+	\begin{equation}U = \left(\begin{array}{ccccc}
+		u_{11} & u_{12} & 0 & 0 & 0\\
+		0 & u_{22} & u_{23} & 0 & 0\\
+		0 & 0 & u_{33} & u_{34} & 0\\
+		0 & 0 & 0 & u_{44} & u_{45}\\
+		0 & 0 & 0 & 0 & u_{55}
+	\end{array}\right)\end{equation}
+	Then I multiple these two matrices and get the following equations
+	\begin{eqnarray*}
+		1\times u_{11} = 4\\
+		1\times u_{12} = 1\\
+		l_{21}\times u_{11} = 1\\
+		l_{21}\times u_{12} + 1\times u_{22} = 4\\
+		1\times u_{23} = 1\\
+		l_{32}\times u_{22} = 1\\
+		l_{32}\times u_{23} + 1\times u_{33} = 4\\
+		1\times u_{34} = 1\\
+		l_{43}\times u_{33} = 1\\
+		l_{43}\times u_{34} + 1\times u_{44} = 4\\
+		1\times u_{45} = 1\\
+		l_{54}\times u_{44} = 1\\
+		l_{54}\times u_{45} + 1\times u_{55} = 4
+	\end{eqnarray*}
+	From these equations, I obtain L and U which are
+	\begin{equation}L = \left(\begin{array}{ccccc}
+		1 & 0 & 0 & 0 & 0\\
+		\frac{1}{4} & 1 & 0 & 0 & 0\\
+		0 & \frac{4}{15} & 1 & 0 & 0\\
+		0 & 0 & \frac{15}{56} & 1 & 0\\
+		0 & 0 & 0 & \frac{56}{209} & 1
+	\end{array}\right)\end{equation}
+	\begin{equation}U = \left(\begin{array}{ccccc}
+		4 & 1 & 0 & 0 & 0\\
+		0 & \frac{15}{4} & 1 & 0 & 0\\
+		0 & 0 & \frac{56}{15} & 1 & 0\\
+		0 & 0 & 0 & \frac{209}{56} & 1\\
+		0 & 0 & 0 & 0 & \frac{780}{209}
+	\end{array}\right)\end{equation}
+	\subsection{Symmetric}
+	A matrix is symmetric if its transpose and itself are the same (\(M = M^T\)). In this question, \(A\)'s transpose \(A^T\) equals to \(A\), which shows that A is symmetric.
+	\subsection{Positive Definite}
+	Since A is a real symmetric matrix, it is positive definite if \(z^TMz > 0\) for all non-zero vectors \(z\). Therefore I obtain the equation
+	\begin{equation}
+		\left[\begin{array}{ccccc}z_1&z_2&z_3&z_4&z_5\end{array}\right]		\left[\begin{array}{ccccc}4&1&0&0&0\\1&4&1&0&0\\0&1&4&1&0\\0&0&1&4&1\\0&0&0&1&4\end{array}\right]
+		\left[\begin{array}{c}z_1\\z_2\\z_3\\z_4\\z_5\end{array}\right]
+	\end{equation}
+	After multiplying these three matrices, I obtain the following equation\begin{equation}\begin{aligned}4z_1^2 + 2z_1z_2 + 4z_2^2 + 2z_2z_3 + 4z_3^2 + 2z_3z_4 + 4z_4^2 + 2z_4z_5 + 4z_5^2\\= 3z_1^2 + (z_1 + z_2)^2 + 2z_2^2 + (z_2 + z_3)^2 + 2z_3^2 + \\(z_3 + z_4)^2 + 2z_4^2 + (z_4 + z_5)^2 + 3z_5^2 > 0\end{aligned}\end{equation}Thus A is positive definite.
+	\subsection{Invertible}
+	Matrix A is invertible if there exists a matrix B such that \(AB = BA = I_n\). Then for the matrix in this question, I find a matrix B which meets that \(AB = BA = I_n\).
+	\begin{equation}B = \left(\begin{array}{ccccc} 
+		0.2679 & -0.0718 & 0.0192 & -0.0051 & 0.0013\\
+		-0.0718 & 0.2872 & -0.0769 & 0.0205 & {-0.0051}\\
+		0.0192 & {-0.0769} & 0.2885 & {-0.0769} & 0.0192\\
+		{-0.0051} & 0.0205 & {-0.0769} & 0.2872 & {-0.0718}\\
+		0.0013 & {-0.0051} & 0.0192 & {-0.0718} & 0.2679
+		\end{array}\right)\end{equation}
+		Therefore A is invertible.
+	\subsection{Largest Eigenvalue}
+	I use \begin{itshape}p8\_e.m\end{itshape} computing the largest eigenvalue by \begin{itshape}Power Iteration Method\end{itshape}. And the result is 5.7312.
+	\subsection{All Eigenvalue}
+	I use \begin{itshape}p8\_f.m\end{itshape} computing all of the eigenvalues of A by \begin{itshape}QR Method\end{itshape}. And the five eigenvalues are \(5.7321, 5, 4, 3, 2.2679\).
+	\section{Problem9}
+\end{document}

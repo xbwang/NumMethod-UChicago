@@ -1,0 +1,4 @@
+We could show it by math induction.
+For n = 2, we could get that A^2v = A*Av. Since Av= Lv, where L refers to lambda, we can get that A^2v = A*(Lv) = L*(Av) = L*Lv = L^2v. So the eigenvalue of A^2 is L^2.
+Assume that the eigenvalue of A^k is L^k. Then A^(k+1)v = A^k*Av = L^k*Av. Since Av = Lv, L^k*Av = L^k*Lv = L^(k+1)v, which means that the eigenvalue of A^(k+1) is L^(k+1).
+In conclusion, the eigenvalues of A^n are L^n.

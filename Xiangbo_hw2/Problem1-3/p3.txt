@@ -1,0 +1,5 @@
+f1-f4 are the result files I got from the 4 equations.
+For f1, False-Position gets the most iterations to find the root. And all the methods work fine.
+For f2, Bisection gets the most iterations to find the root. And only Bisection doesn't work fine.
+For f3, Bisection gets the most iterations to find the root. And Bisection doesn't work fine.
+For f4, Mullers gets the most iterations to find the root. And Mullter doesn't work fine.

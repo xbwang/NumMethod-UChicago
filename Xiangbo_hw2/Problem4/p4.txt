@@ -1,0 +1,1 @@
+i use the direct A/b for Gaussian elimination in mablab and compare the maximum error with Pseudo-Inverse solver. The error starts with m = 40 and reach the maximum 1 when m - 80.

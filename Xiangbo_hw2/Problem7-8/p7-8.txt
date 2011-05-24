@@ -1,0 +1,17 @@
+p7:
+for a second order polynomial like y = a+bx+c^2:
+We should minimize SUM[(yi - (a+bxi+cxi^.2))^2] for i = 1 to n.
+Then we got the equations to solve the a,b and c:
+SUM[yi] = aSUM[i] + b*SUM[xi] + c*SUM[xi^.2] for i from 1 to n
+SUM[xi*yi] = a*SUM[xi] + b*SUM[xi^.2)] + c*SUM[xi^.3] for i from 1 to n
+SUM[xi^.2*yi] = a*SUM[xi^.2] + b*SUM[xi^.3] + c*SUM[xi^.4] fro i from 1 to n
+
+p8
+for a n order polynomial like y = a(m)*X^m + a(m-1)*X^(m-1) + ... + a(0):
+We should minimize SUM[(yi - (a(0)+a(1)*xi+a(2)*xi^2+...+a(m)xi^m))^2] for i = 1 to n, similar to p7.
+Then we got the similar equations to solve the a(i) where i from 0 to m
+SUM[yi] = a(0)*SUM[i] + a(1)*SUM[xi] + a(2)*SUM[xi^2] + ... + a(m)*SUM[xi^m] for i = 1 to n,
+...
+...
+...
+SUM[xi^m*yi] = a(0)*SUM[xi^m] + a(1)*SUM[xi^(m+1)] + ... + a(m)SUM[xi^2m] for i = 1 to n
