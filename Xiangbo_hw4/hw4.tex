@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\title{Numerical Method Homework4}
+\author{Xiangbo Wang}
+\begin{document}
+	\maketitle
+	\setlength{\parindent}{2em}
+	
+	\section{Problem1}
+	\par Let's assume $x$ is any eigenvalue of $M$ which is a \textbf{real} positive definite matrix. Then $Mx = \lambda x$ and therefore $x^TMx = x^T\lambda x = \lambda x^Tx = \lambda x\cdot x = \lambda \|x\|^2$. Since $M$ is a positive definite matrix, it holds that $x^TMx > 0$. Then $\lambda \|x\|^2$ must be positive and therefore $\lambda$ must be positive.
+	\par Let's assume $y$ is any eigenvalue of $M$ which is a \textbf{complex} positive definite matrix. Then $My = \lambda y$ and therefore $\Re(y^*My) = \Re(y^*\lambda y) = \lambda\Re(y^*y) = \lambda\Re(y^*)\Re(y)$. Since $y^* = y^T$ if $y$ is real, then $\lambda\Re(y^*)\Re(y) = \lambda \Re(y^T)\Re(y) = \lambda \Re(y)\cdot\Re(y) = \lambda \|\Re(y)\|^2$. Since $M$ is a positive definite matrix, it holds that $\Re(y^*My) > 0$. Then $\lambda \|\Re(y)\|^2$ must be positive and therefore $\lambda$ must be positive.
+	\par In conclusion, the eigenvalues of a positive definite matrix are all positive.
+	
+	\section{Problem2}
+	\par The condition number is defined be be the maximum ratio of the relative error in $x$ divided by the relative error in $b$ of linear equation $Ax = b$. Let's assume the error in the solution $A^{-1}b$ is $A^{-1}e$. Then the ratio of the relative error in the solution to the relative error in b is
+	\begin{equation}
+		\frac{\|A^{-1}e\|/\|A^{-1}b\|}{\|e\|/\|b\|}
+		= (\|A^{-1}e\|/\|e\|)(\|b\|/\|A^{-1}b\|)
+	\end{equation}
+	Then the maximum value could be seen to be the product of the two operator norms
+	\begin{equation}
+		\kappa(A) = \|A\|\cdot\|A^{-1}\|
+	\end{equation}
+	Since the norm of a matrix could be obtain by
+	\begin{equation}
+		\|A\| = \sqrt{\mbox{largest eigenvalue of }A^*A}
+	\end{equation}
+	and the matrix $A$ in this question is an unitary matrix which has the properties of $A^{\dagger}A = I_n$ and $A^{\dagger} = A^{-1}$ ($A^{\dagger}$ is the same as $A^*$), thus from $(3)$ we could obtain that
+	\begin{equation}
+		\|A\| = \sqrt{\mbox{largest eigenvalue of }I_n}
+	\end{equation}
+	\begin{equation}\begin{aligned}
+		\|A^{-1}\| = \sqrt{\mbox{largest eigenvalue of }A^{-1^*}A^{-1}}\\
+		= \sqrt{\mbox{largest eigenvalue of }A^{\dagger^*}A^{\dagger}}\\
+		= \sqrt{\mbox{largest eigenvalue of }AA^{\dagger}}\\
+		= \sqrt{\mbox{largest eigenvalue of }I_n}
+	\end{aligned}\end{equation}
+	\par Therefore from $(2)$, $(4)$ and $(5)$ we finally have that the condition number of an unitary matrix is
+	\begin{equation}
+		\kappa(A) = \sqrt{\mbox{largest eigenvalue of }I_n}\sqrt{\mbox{largest eigenvalue of }I_n} = 1
+	\end{equation}
+	
+	\section{Problem3}
+	\par (a) The cubic spline interpolator we need for this system is like following equations:
+	\begin{equation}\begin{split}
+		s_i(x_i) = a_i(x - x_i)^3 + b_i(x-x_i)^2 + c_i(x - x_i) + d_i \\
+		s_i(x_i) = a_ih_i^3 + b_ih_i^2 + c_ih_i + d_i
+	\end{split}\end{equation}
+	And for each spline, it must satisfy $s_i(x) = d_i$.
+	\par (b) My code is in $p3.m$ and the test file is $p3\mbox{\_}test.m$. Usage: Having an array of data as input and call like $p3(N)$.
+	\section{Problem4}
+	\par (a) From the system of equations $x' = Ax$ in the question, we can obtain that $\frac{dx}{dt} = Ax$ so that $x = e^{At} + c$. While $t = 0$ and $x = x_0$, then we can obtain that $x = e^{At} - tx_0$ and $e^A = ve^{\lambda}v$. Then with the $Forward \mbox{ } Euler$:
+	\begin{eqnarray}
+		\frac{du}{dt} = \lambda u\\
+		\frac{u^{n+1} - u^n}{dt} = \lambda u^n\\
+		u^{n+1} = u^n + \lambda dtu^n\\
+		u^{n+1} = u^n + Adtu^n\\
+		\frac{u^{n+1}}{u^n} = 1 + Adt
+	\end{eqnarray} 
+	where $u^{n+1} = u(x_{n+1}) \mbox{ and } c = 0 and u = u^0$. The limitation should be imposed on the timesetp in order to get the numerical stability. Therefore, to get more stability of the solution, the discrete $dt$ should be more discrete.
+	\par (b) With the $Backward \mbox{ }Euler$, we will obtain that:
+	\begin{eqnarray}
+		\frac{u^{n+1} - u^n}{dt} = Au^{n+1} \\
+		u^{n+1} - u^n =  Adtu^{n+1} \\
+		u^n = u^{n+1}(1 - Adt) \\
+		\frac{u^n}{u^{n+1}} = 1 - Adt
+	\end{eqnarray}
+	The limitation should be imposed on the timesetp in order to get the numerical stability. However, since the $Backward \mbox{ }Euler$ are numerically stable, therefore the size of the timestep is not important.
+	
+	\section{Problem5}
+	\par Since $Av = \lambda v$, given $(I - vv')Av$, we can obtain that
+	\begin{equation}\begin{split}
+		(I - vv')Av = (I - vv')\lambda v\\
+		\mbox{   }= \lambda (I - vv')v\\
+		\mbox{   }= \lambda (Iv - v(v'v))
+	\end{split}\end{equation}
+	Since $Iv = v$ and $v'v = \|v\|$, we can obtain that
+	\begin{equation}
+		\lambda (Iv - v(v'v)) = \lambda (v - v\|v\|)
+	\end{equation}
+	Since $\|v\| = 1$, we can get that
+	\begin{equation}\begin{split}
+		\lambda (v - v\|v\|) = \lambda (v - v\times 1)\\
+		\mbox{   }= \lambda \times 0
+	\end{split}\end{equation}
+	\par Therefore, $(I - vv')Av = 0$.
+	\section{Problem6}
+	\par (a) To find sufficient conditions, the matrix $A$ has to be strictly dominant and irresolvable. A matrix is said to be strictly dominant if
+	\begin{equation}
+		|a_{ii}| > \sum_{j=1,j\neq i}^n{|a_{ij}|}\mbox{, }i\in N = {1,2,...,n}
+	\end{equation}
+	So in this case, $|5| > |\alpha|$ which means $\alpha > 5 \mbox{ or }\alpha < {-5}$. Also, A matrix is said to be irresolvable if sets $I$ and $J$ such that $I\neq \phi$, $J\neq \phi$, $I\cap J\neq \phi$, $I\cup J = N = {1,2,...,n}$, $a_{ij} = 0$ do not exist.
+	\par Therefore $\alpha > 5 \mbox{ or }\alpha < {-5}$.
+	\par (b) For the methods, if the spectral radius of the iteration matrix is less than one, the convergence will be guaranteed. Based on this, I found a matrix Jacob method got convergence while Gauss-Seidel method doesn't.
+	\begin{equation}
+		A = \left(\begin{array}{ccccc}
+		3 & -5 & 2\\
+		5 & 4 & 3\\
+		2 & 5 & 3
+		\end{array}\right)
+	\end{equation}
+	With $b = (1\mbox{ }1\mbox{ }1)'$ and $x_0 = (0\mbox{ }0\mbox{ }0)'$, Jacob method could get the solution with 204 iterations, while Gauss-Seidel can't. And the $\rho (B) = 0.91 < 1$ for Jacob method but $\rho (B) = 2.16 > 1$ for Gauss-Seidel.
+	
+	\section{Problem7}
+	\par My code for Jacobi is in $p7\mbox{\_}j.m$ and the results are in $result\mbox{\_}7j.xls$. It works pretty good when the $N$ is not large [10, 20 and 40]. However, it works bad on $N = 80$ where it needs 20222 iterations. And it doesn't stop when $N = 160$.
+	\par My code for SSOR is in $p7\mbox{\_}s.m$ and the results are in $result\mbox{\_}7s.xls$. It works pretty good for all the $N$ equals to 10, 20, 40, 80 and 160. 
+	\par In conclusion, the SSOR is much better.
+	
+	\section{Problem8}
+	\par My code for Non-preconditioner, Jacobi and SSOR are all in $p8.m$ and the results are in $result\mbox{\_}8.xls$. Non-preconditioner and Jacobi got the same iterations which means that it didn't help much. However, SSOR gave me nothing which made things even worse.
+\end{document}
